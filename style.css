@@ -149,6 +149,91 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.05; letter-spacing
   display: block;
 }
 
+/* ============ LANGUAGE SWITCHER ============ */
+
+.lang-switch {
+  display: flex;
+  gap: 0.4rem;
+  margin-left: 1.5rem;
+}
+
+.lang-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.55;
+  transition: opacity 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.lang-btn:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.lang-btn.active {
+  opacity: 1;
+  border-color: var(--ember);
+}
+
+.flag {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-size: cover;
+}
+
+/* simple drawn flags, no image files needed */
+
+.flag-pt {
+  background: linear-gradient(to right, #2e6b3e 0% 38%, #d6362b 38% 100%);
+  position: relative;
+}
+.flag-pt::after {
+  content: '';
+  position: absolute;
+  left: 32%;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  background: #f4c945;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.flag-en {
+  background: #0a2a6b;
+  position: relative;
+  overflow: hidden;
+}
+.flag-en::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(45deg, transparent 46%, #fff 46%, #fff 54%, transparent 54%),
+    linear-gradient(-45deg, transparent 46%, #fff 46%, #fff 54%, transparent 54%);
+}
+.flag-en::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, transparent 42%, #d6362b 42%, #d6362b 58%, transparent 58%),
+    linear-gradient(to right, transparent 42%, #d6362b 42%, #d6362b 58%, transparent 58%);
+}
+
+.flag-es {
+  background: linear-gradient(to bottom, #d6362b 0% 25%, #f4c945 25% 75%, #d6362b 75% 100%);
+}
+
 /* ============ HERO ============ */
 
 .hero {
@@ -651,5 +736,12 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.05; letter-spacing
     display: none;
   }
   .main-nav.open { display: flex; }
-  .nav-toggle { display: flex; }
+  .nav-toggle { display: flex; order: 3; }
+  .lang-switch { margin-left: 0.8rem; order: 2; }
+  .brand-en { display: none; }
+}
+
+@media (max-width: 420px) {
+  .lang-btn { width: 26px; height: 26px; }
+  .lang-switch { gap: 0.3rem; margin-left: 0.5rem; }
 }

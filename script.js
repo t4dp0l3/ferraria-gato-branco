@@ -2,18 +2,59 @@
 // FERRARIA DO GATO BRANCO — site behaviour
 // ============================================================
 
-const categoryLabels = {
-  gates: "Portão",
-  railings: "Gradeamento",
-  lighting: "Iluminação",
-  signage: "Sinalética",
-  restoration: "Restauro",
-  other: "Outro"
+// ---- language state ----
+let currentLang = localStorage.getItem("site-lang") || "pt";
+
+const categoryLabelKeys = {
+  gates: "gallery.gates",
+  railings: "gallery.railings",
+  lighting: "gallery.lighting",
+  signage: "gallery.signage",
+  restoration: "gallery.restoration",
+  other: "request.type.other"
 };
 
+function t(key) {
+  return (translations[currentLang] && translations[currentLang][key])
+    || (translations.pt && translations.pt[key])
+    || key;
+}
+
+function applyTranslations() {
+  document.documentElement.lang = currentLang;
+
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    el.innerHTML = t(el.dataset.i18n);
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    el.setAttribute("placeholder", t(el.dataset.i18nPlaceholder));
+  });
+  document.querySelectorAll("[data-i18n-aria]").forEach(el => {
+    el.setAttribute("aria-label", t(el.dataset.i18nAria));
+  });
+
+  document.querySelectorAll(".lang-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.lang === currentLang);
+  });
+
+  // re-render gallery + reset active filter label since titles/categories changed language
+  renderGallery(currentFilter);
+}
+
+document.querySelectorAll(".lang-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    currentLang = btn.dataset.lang;
+    localStorage.setItem("site-lang", currentLang);
+    applyTranslations();
+  });
+});
+
+// ---- gallery rendering ----
 const grid = document.getElementById("gallery-grid");
+let currentFilter = "all";
 
 function renderGallery(filter) {
+  currentFilter = filter;
   grid.innerHTML = "";
   const pieces = filter === "all"
     ? galleryPieces
@@ -22,15 +63,17 @@ function renderGallery(filter) {
   pieces.forEach((piece, i) => {
     const el = document.createElement("div");
     el.className = "piece";
+    const title = piece.title[currentLang] || piece.title.pt;
+    const material = piece.material[currentLang] || piece.material.pt;
     el.innerHTML = `
       <div class="piece-photo">
         <span class="piece-num">N.&deg; ${String(i + 1).padStart(2, "0")}</span>
-        <img src="images/gallery/${piece.image}" alt="${piece.title}" loading="lazy">
+        <img src="images/gallery/${piece.image}" alt="${title}" loading="lazy">
       </div>
       <div class="piece-info">
-        <p class="piece-title">${piece.title}</p>
+        <p class="piece-title">${title}</p>
         <div class="piece-meta">
-          <span>${piece.material}</span>
+          <span>${material}</span>
           <span>${piece.year}</span>
         </div>
       </div>
@@ -39,8 +82,6 @@ function renderGallery(filter) {
     grid.appendChild(el);
   });
 }
-
-renderGallery("all");
 
 // ---- filters ----
 document.querySelectorAll(".filter-btn").forEach(btn => {
@@ -60,12 +101,16 @@ const lbNote = document.getElementById("lightbox-note");
 const lbNum = document.getElementById("lightbox-num");
 
 function openLightbox(piece, i) {
+  const title = piece.title[currentLang] || piece.title.pt;
+  const material = piece.material[currentLang] || piece.material.pt;
+  const note = (piece.note && (piece.note[currentLang] || piece.note.pt)) || "";
+
   lbImg.src = `images/gallery/${piece.image}`;
-  lbImg.alt = piece.title;
-  lbTitle.textContent = piece.title;
-  lbMeta.textContent = `${piece.material} — ${piece.year}`;
-  lbNote.textContent = piece.note || "";
-  lbNum.textContent = `N.\u00b0 ${String(i + 1).padStart(2, "0")} \u2014 ${categoryLabels[piece.category] || ""}`;
+  lbImg.alt = title;
+  lbTitle.textContent = title;
+  lbMeta.textContent = `${material} — ${piece.year}`;
+  lbNote.textContent = note;
+  lbNum.textContent = `N.\u00b0 ${String(i + 1).padStart(2, "0")} \u2014 ${t(categoryLabelKeys[piece.category] || "")}`;
   lightbox.classList.add("open");
   lightbox.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
@@ -139,3 +184,6 @@ form.addEventListener("submit", async (e) => {
     alert("Algo correu mal. Tente novamente ou envie um email diretamente.");
   }
 });
+
+// ---- initial paint ----
+applyTranslations();

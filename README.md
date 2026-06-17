@@ -3,6 +3,23 @@
 A plain HTML/CSS/JS site. No build step, no framework, no Figma sync.
 Open `index.html` in a browser and it works. Edit the files directly.
 
+## Editing site text (Portuguese / English / Spanish)
+
+The site has a flag switcher in the header (PT / EN / ES) that swaps all
+text instantly — no page reload, no separate pages to maintain.
+
+All translatable text lives in **`translations.js`**. Each line is a
+`"key": "text"` pair, grouped under `pt`, `en`, and `es`. To change
+wording, find the matching key in each of the three language blocks
+and edit the text. Keep the same key name in all three places.
+
+Gallery piece titles, materials, and notes are translated separately,
+inside **`gallery-data.js`** — each piece has `title`, `material`, and
+`note` as `{ pt: "...", en: "...", es: "..." }` objects instead of plain
+strings. Just fill in the version for each language; if you don't have
+a Spanish translation yet, leave it as `""` and it'll show blank rather
+than break anything.
+
 ## Adding or changing gallery photos
 
 1. Put the photo file in `images/gallery/`
@@ -59,11 +76,12 @@ The live site updates within a minute or two automatically.
 ## File map
 
 ```
-index.html       — page structure and content
-style.css         — all visual design
-script.js         — gallery rendering, filters, lightbox, form logic
-gallery-data.js   — the list of pieces (THIS is what you edit most often)
+index.html        — page structure and content
+style.css          — all visual design
+script.js          — gallery rendering, filters, lightbox, form, language switching
+translations.js    — all site text in PT / EN / ES (edit this for wording changes)
+gallery-data.js    — the list of pieces (THIS is what you edit most often)
 images/
-  cat-mark.png    — the logo
-  gallery/        — photos referenced by gallery-data.js
+  cat-mark.png     — the logo
+  gallery/         — photos referenced by gallery-data.js
 ```
