@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ferraria do Gato Branco — Forja artesanal, Vila Velha de Ródão</title>
+<meta name="description" content="Ferraria do Gato Branco — forged ironwork, gates, railings, lighting, restoration and custom signage from Vila Velha de Ródão, Portugal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#top" class="brand">
+      <img src="images/cat-mark.png" alt="" class="brand-mark" aria-hidden="true">
+      <span class="brand-text">
+        <span class="brand-pt">Ferraria do Gato Branco</span>
+        <span class="brand-en">White Cat Ironworks</span>
+      </span>
+    </a>
+    <nav class="main-nav">
+      <a href="#gallery">Galeria</a>
+      <a href="#about">Sobre</a>
+      <a href="#request">Encomendas</a>
+      <a href="#contact">Contacto</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Vila Velha de Ródão · Portugal</p>
+    <h1 class="hero-title">Iron, fire,<br>and an old name<br>lit again.</h1>
+    <p class="hero-sub">Forja tradicional de ferro forjado — portões, gradeamentos, candeeiros, restauro e sinalética por encomenda.</p>
+    <div class="hero-actions">
+      <a href="#gallery" class="btn btn-primary">Ver trabalhos</a>
+      <a href="#request" class="btn btn-ghost">Pedir um orçamento</a>
+    </div>
+  </div>
+  <div class="hero-mark" aria-hidden="true">
+    <img src="images/cat-mark.png" alt="">
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-text">
+      <p class="section-eyebrow">A forja</p>
+      <h2>Reaberta, não reinventada.</h2>
+      <p>A ferraria voltou a aquecer. O mesmo lugar, as mesmas bigornas, com o conhecimento de quem lá trabalhou antes a juntar-se a técnicas novas — corte a plasma incluído, para sinalética e peças que pedem outra precisão.</p>
+      <p>Trabalho à mão, ao calor da forja: portões, gradeamentos, candeeiros de rua, restauro de ferro antigo, e peças por encomenda — desenhadas e feitas uma a uma.</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat">
+        <span class="stat-num">100% à mão</span>
+        <span class="stat-label">Forjado, não fundido</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">1 a 1</span>
+        <span class="stat-label">Sem produção em série</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">Local</span>
+        <span class="stat-label">Vila Velha de Ródão</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="gallery" id="gallery">
+  <div class="gallery-header">
+    <p class="section-eyebrow">Catálogo</p>
+    <h2>Peças feitas</h2>
+    <div class="filter-row" role="group" aria-label="Filtrar por categoria">
+      <button class="filter-btn active" data-filter="all">Todas</button>
+      <button class="filter-btn" data-filter="gates">Portões</button>
+      <button class="filter-btn" data-filter="railings">Gradeamentos</button>
+      <button class="filter-btn" data-filter="lighting">Iluminação</button>
+      <button class="filter-btn" data-filter="signage">Sinalética</button>
+      <button class="filter-btn" data-filter="restoration">Restauro</button>
+    </div>
+  </div>
+
+  <div class="gallery-grid" id="gallery-grid">
+    <!-- populated by script.js from gallery-data.js -->
+  </div>
+</section>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox-close" aria-label="Fechar">&times;</button>
+  <div class="lightbox-content">
+    <img src="" alt="" id="lightbox-img">
+    <div class="lightbox-caption">
+      <span class="lightbox-num" id="lightbox-num"></span>
+      <h3 id="lightbox-title"></h3>
+      <p id="lightbox-meta"></p>
+      <p id="lightbox-note"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ REQUEST / COMMISSION ============ -->
+<section class="request" id="request">
+  <div class="request-inner">
+    <p class="section-eyebrow">Peças por encomenda</p>
+    <h2>Tem uma ideia? Vamos forjá-la.</h2>
+    <p class="request-sub">Portões, gradeamentos, restauro, sinalética ou outra coisa qualquer em ferro. Descreva o que precisa — respondo por email.</p>
+
+    <form class="request-form" id="request-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="name">Nome</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="type">Tipo de peça</label>
+        <select id="type" name="type">
+          <option value="Portão">Portão</option>
+          <option value="Gradeamento">Gradeamento</option>
+          <option value="Iluminação">Iluminação / candeeiro</option>
+          <option value="Sinalética">Sinalética</option>
+          <option value="Restauro">Restauro</option>
+          <option value="Outro">Outro</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="message">Descreva o que tem em mente</label>
+        <textarea id="message" name="message" rows="5" required placeholder="Dimensões aproximadas, local de instalação, estilo, prazo desejado..."></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Enviar pedido</button>
+      <p class="form-fallback">Prefere email direto? Escreva para <a href="mailto:gatobrancoferraria@gmail.com">gatobrancoferraria@gmail.com</a></p>
+    </form>
+
+    <div class="form-success" id="form-success" hidden>
+      <p>Pedido enviado. Resposta em breve.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER / CONTACT ============ -->
+<footer class="site-footer" id="contact">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="images/cat-mark.png" alt="" class="footer-mark">
+      <p>Ferraria do Gato Branco</p>
+      <p class="footer-sub">White Cat Ironworks</p>
+    </div>
+    <div class="footer-contact">
+      <p><a href="mailto:gatobrancoferraria@gmail.com">gatobrancoferraria@gmail.com</a></p>
+      <p>Vila Velha de Ródão, Portugal</p>
+    </div>
+  </div>
+  <p class="footer-fine">&copy; 2026 Ferraria do Gato Branco</p>
+</footer>
+
+<script src="gallery-data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
