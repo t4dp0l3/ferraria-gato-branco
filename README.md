@@ -1,87 +1,73 @@
-# Ferraria do Gato Branco — website
+# Ferraria do Gato Branco – Website Notes
 
-A plain HTML/CSS/JS site. No build step, no framework, no Figma sync.
-Open `index.html` in a browser and it works. Edit the files directly.
+A simple HTML/CSS/JS website. No frameworks, no build tools, no complicated nonsense.
 
-## Editing site text (Portuguese / English / Spanish)
+Open `index.html` in a browser to test changes. Edit the files directly.
 
-The site has a flag switcher in the header (PT / EN / ES) that swaps all
-text instantly — no page reload, no separate pages to maintain.
+## Changing text / translations
 
-All translatable text lives in **`translations.js`**. Each line is a
-`"key": "text"` pair, grouped under `pt`, `en`, and `es`. To change
-wording, find the matching key in each of the three language blocks
-and edit the text. Keep the same key name in all three places.
+All general website text is in **`translations.js`**.
 
-Gallery piece titles, materials, and notes are translated separately,
-inside **`gallery-data.js`** — each piece has `title`, `material`, and
-`note` as `{ pt: "...", en: "...", es: "..." }` objects instead of plain
-strings. Just fill in the version for each language; if you don't have
-a Spanish translation yet, leave it as `""` and it'll show blank rather
-than break anything.
+- Three languages: Portuguese (`pt`), English (`en`) and Spanish (`es`).
+- Find the relevant key and update the text in all three language sections.
+- Don't change the key names.
 
-## Adding or changing gallery photos
+Gallery text is separate, in **`gallery-data.js`**. Each piece has its own translated `title`, `material` and `note`.
 
-1. Put the photo file in `images/gallery/`
-   - JPG or PNG, doesn't matter
-   - Keep an eye on file size — resize photos to roughly 1600px wide before
-     uploading so the site stays fast. Any phone photo editor or
-     https://squoosh.app can do this in seconds.
-2. Open `gallery-data.js`
-3. Copy one of the existing `{ ... }` blocks, paste it into the list
-4. Change `image` to your new filename, fill in the other fields
-5. Save. Refresh the page. Done — no rebuild, no upload step beyond the file itself.
+No translation yet? Leave it as `""`. The site won't break.
 
-To remove a piece, just delete its `{ ... }` block from `gallery-data.js`.
-To reorder, drag the blocks up or down in the list — order in the file is
-the order they appear on the site (within each category).
+## Adding gallery photos
 
-## Categories
+1. Resize the photo to roughly 1600px wide. No need for 12 MB gate photos.
+2. Put it in `images/gallery/`.
+3. Open `gallery-data.js`.
+4. Copy an existing entry and change the details.
+5. Save, refresh and check.
 
-The `category` field must be one of:
+To remove a piece, delete its entry. To change the order, move the entries around in the file.
+
+Current categories:
+
 `gates`, `railings`, `lighting`, `signage`, `restoration`, `other`
 
-These map to the filter buttons on the gallery section. If you want a new
-category button, you'll need to add it in two places:
-- `index.html` — add a `<button class="filter-btn" data-filter="yourcategory">Label</button>`
-- `script.js` — add `yourcategory: "Label"` to the `categoryLabels` object at the top
+Adding a new category requires two changes:
+- `index.html` – add the filter button.
+- `script.js` – add the label to `categoryLabels`.
 
-## The request form
+## Request form
 
-Right now the form falls back to opening the visitor's email client with
-the details pre-filled (a `mailto:` link). That works immediately, no setup.
+Currently uses `mailto:`. Opens the visitor's email client with the details filled in.
 
-To get proper form submissions emailed to you directly instead:
+To receive submissions directly by email, use [Formspree](https://formspree.io):
 
-1. Go to https://formspree.io and make a free account
-2. Create a new form, it'll give you a URL like
-   `https://formspree.io/f/abcd1234`
-3. Open `index.html`, find this line near the request form:
-   `action="https://formspree.io/f/YOUR_FORM_ID"`
-4. Replace `YOUR_FORM_ID` with your actual ID
-5. Save. Submissions will now arrive by email automatically.
+1. Create a free account and a new form.
+2. Copy the form URL.
+3. In `index.html`, find the form's `action` attribute.
+4. Replace `YOUR_FORM_ID` with the actual ID.
 
-## Hosting it for real (GitHub Pages)
+## Publishing changes
 
-1. Push these files to your GitHub repo (replace whatever was there before —
-   delete the old Figma-generated files first to avoid confusion)
-2. In the repo, go to Settings → Pages
-3. Under "Source", choose the `main` branch and `/ (root)` folder
-4. Save — GitHub gives you a URL like `https://t4dp0l3.github.io/Blacksmithwebsitewithgallery/`
-5. Optional: add a custom domain later under the same Pages settings
+Hosted on GitHub Pages.
 
-Pushing changes after that point is just: edit a file, commit, push.
-The live site updates within a minute or two automatically.
+After making changes:
+
+1. Test locally by opening `index.html`.
+2. Commit and push the updated files to GitHub.
+3. Wait a minute or two for GitHub Pages to update.
+
+For initial setup: Repository → Settings → Pages → `main` branch → `/ (root)`.
 
 ## File map
 
-```
-index.html        — page structure and content
-style.css          — all visual design
-script.js          — gallery rendering, filters, lightbox, form, language switching
-translations.js    — all site text in PT / EN / ES (edit this for wording changes)
-gallery-data.js    — the list of pieces (THIS is what you edit most often)
+```text
+index.html       — Website structure
+style.css        — Styling
+script.js        — Gallery, filters, lightbox, form, language switching
+translations.js  — Main website translations
+gallery-data.js  — Gallery entries and translations
 images/
-  cat-mark.png     — the logo
-  gallery/         — photos referenced by gallery-data.js
+  cat-mark.png   — Logo
+  gallery/       — Gallery photos
 ```
+
+**Future me:** Most changes will probably involve `translations.js` or `gallery-data.js`. Start there before poking around elsewhere. No need to make a simple job complicated.
